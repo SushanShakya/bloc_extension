@@ -3,7 +3,7 @@ import * as changeCase from "change-case";
 import * as mkdirp from "mkdirp";
 
 import { InputBoxOptions, OpenDialogOptions, Uri, window } from "vscode";
-import { existsSync, lstatSync, writeFile } from "fs";
+import { existsSync, lstatSync, writeFile, mkdirSync } from "fs";
 import { getCubitStateTemplate, getCubitTemplate } from "../templates";
 import { getBlocType, BlocType, TemplateType } from "../utils";
 
@@ -105,15 +105,19 @@ function createCubitStateTemplate(
   codeType: CubitCode
 ) {
   const snakeCaseCubitName = changeCase.snakeCase(cubitName.toLowerCase());
-  const targetPath = `${targetDirectory}/cubit/${snakeCaseCubitName}_state.dart`;
+  const targetFolder = `${targetDirectory}/${snakeCaseCubitName}`;
+  const targetPath = `${targetFolder}/${snakeCaseCubitName}_state.dart`;
   if (existsSync(targetPath)) {
     throw Error(`${snakeCaseCubitName}_state.dart already exists`);
+  }
+  if (!existsSync(targetFolder)) {
+    mkdirSync(targetFolder);
   }
   return new Promise(async (resolve, reject) => {
     writeFile(
       targetPath,
       getCubitStateTemplate(cubitName, type, codeType),
-      "utf8",
+      { flag: "w+" },
       (error) => {
         if (error) {
           reject(error);
@@ -132,15 +136,19 @@ function createCubitTemplate(
   codeType: CubitCode
 ) {
   const snakeCaseCubitName = changeCase.snakeCase(cubitName.toLowerCase());
-  const targetPath = `${targetDirectory}/cubit/${snakeCaseCubitName}_cubit.dart`;
+  const targetFolder = `${targetDirectory}/${snakeCaseCubitName}`;
+  const targetPath = `${targetFolder}/${snakeCaseCubitName}_cubit.dart`;
   if (existsSync(targetPath)) {
     throw Error(`${snakeCaseCubitName}_cubit.dart already exists`);
+  }
+  if (!existsSync(targetFolder)) {
+    mkdirSync(targetFolder);
   }
   return new Promise(async (resolve, reject) => {
     writeFile(
       targetPath,
       getCubitTemplate(cubitName, type, codeType),
-      "utf8",
+      { flag: "w+" },
       (error) => {
         if (error) {
           reject(error);

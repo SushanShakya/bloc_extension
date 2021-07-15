@@ -74,24 +74,22 @@ function _createExtraTemplate(cubitName: string, codeType: CubitCode) {
 
 function _createCodeForGet(cubitName: string): string {
   return `fetch() async {
-  emit(${cubitName}Loading());
-  try {
-    emit(${cubitName}Loaded());
-  } catch (e) {
-    emit(${cubitName}Failed("Failed to Load"));
-  }
-}
-  `;
+    emit(${cubitName}Loading());
+    try {
+      emit(${cubitName}Loaded());
+    } catch (e) {
+      emit(${cubitName}Failed("Failed to Load"));
+    }
+  }`;
 }
 
 function _createCodeForPost(cubitName: string): string {
   return `post() async{
-  emit(${cubitName}Loading());
-  try {
-    emit(${cubitName}Success());
-  } catch (e) {
-    emit(${cubitName}Failed(e.toString()));
-  }
-}
-  `;
+    emit(${cubitName}Loading());
+    try {
+      emit(${cubitName}Success());
+    } catch (e) {
+      emit(${cubitName}Failed(e.toString()));
+    }
+  }`;
 }

@@ -1,0 +1,28 @@
+{
+    "Cubit Get Request": {
+        "prefix": "c_get",
+        "body": [
+            "fetch() async {",
+            "\temit(${1:Subject}Loading());",
+            "\ttry {",
+            "\t\temit(${1:Subject}Loaded());",
+            "\t} catch (e) {",
+            "\t\temit(${1:Subject}Failed(\"Failed to Load\"));",
+            "\t}",
+            "}"
+        ]
+    },
+    "Cubit Pos Request": {
+        "prefix": "c_post",
+        "body": [
+            "post() async {",
+            "\temit(${1:Subject}Loading());",
+            "\ttry {",
+            "\t\temit(${1:Subject}Loaded());",
+            "\t} catch (e) {",
+            "\t\temit(${1:Subject}Failed(\"Failed to Load\"));",
+            "\t}",
+            "}"
+        ]
+    }
+}

@@ -20,7 +20,7 @@
 ---
 
 # Original Extension by Felangel
-## This modification included added functionality to New Cubit to reduce the boilerplate for get and post request
+## This modification included added functionality to 'New Cubit' to reduce the boilerplate for get and post request
 
 ## Overview
 

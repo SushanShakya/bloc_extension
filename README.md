@@ -23,10 +23,6 @@
 
 [VSCode](https://code.visualstudio.com/) support for the [Bloc Library](https://bloclibrary.dev) and provides tools for effectively creating [Blocs](https://github.com/felangel/bloc) and [Cubits](https://github.com/felangel/cubit) for both [Flutter](https://flutter.dev/) and [AngularDart](https://angulardart.dev/) apps.
 
-## Installation
-
-Bloc can be installed from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=FelixAngelov.bloc) or by [searching within VSCode](https://code.visualstudio.com/docs/editor/extension-gallery#_search-for-an-extension).
-
 ## Commands
 
 | Command            | Description          |

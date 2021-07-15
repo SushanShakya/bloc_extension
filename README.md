@@ -2,7 +2,7 @@
 <img src="https://raw.githubusercontent.com/felangel/bloc/master/docs/assets/bloc_logo_full.png" height="100" alt="Bloc" />
 </p>
 
-<p align="center">
+<!-- <p align="center">
 <a href="https://github.com/felangel/bloc/actions"><img src="https://img.shields.io/github/workflow/status/felangel/bloc/build.svg?logo=github" alt="build"></a>
 <a href="https://codecov.io/gh/felangel/bloc"><img src="https://codecov.io/gh/felangel/Bloc/branch/master/graph/badge.svg" alt="codecov"></a>
 <a href="https://github.com/felangel/bloc"><img src="https://img.shields.io/github/stars/felangel/bloc.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Star on Github"></a>
@@ -15,17 +15,16 @@
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="License: MIT"></a>
 <a href="https://discord.gg/bloc"><img src="https://img.shields.io/discord/649708778631200778.svg?logo=discord&color=blue" alt="Discord"></a>
 <a href="https://github.com/felangel/bloc"><img src="https://tinyurl.com/bloc-library" alt="Bloc Library"></a>
-</p>
+</p> -->
 
 ---
+
+# Original Extension by Felangel
+## This modification included added functionality to 'New Cubit' to reduce the boilerplate for get and post request
 
 ## Overview
 
 [VSCode](https://code.visualstudio.com/) support for the [Bloc Library](https://bloclibrary.dev) and provides tools for effectively creating [Blocs](https://github.com/felangel/bloc) and [Cubits](https://github.com/felangel/cubit) for both [Flutter](https://flutter.dev/) and [AngularDart](https://angulardart.dev/) apps.
-
-## Installation
-
-Bloc can be installed from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=FelixAngelov.bloc) or by [searching within VSCode](https://code.visualstudio.com/docs/editor/extension-gallery#_search-for-an-extension).
 
 ## Commands
 

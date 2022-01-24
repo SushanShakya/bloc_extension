@@ -3,7 +3,7 @@
     "prefix": "blocprovider",
     "body": [
       "BlocProvider(",
-      "\tcreate: (context) => ${1:Subject}${2|Bloc,Cubit|}(),",
+      "\tcreate: (context) => ${1:Subject}${2|Cubit,Bloc|}(),",
       "\tchild: ${3:Container()},",
       ")"
     ]
@@ -14,10 +14,10 @@
       "MultiBlocProvider(",
       "\tproviders: [",
       "\t\tBlocProvider(",
-      "\t\t\tcreate: (context) => ${1:Subject}${2|Bloc,Cubit|}(),",
+      "\t\t\tcreate: (context) => ${1:Subject}${2|Cubit,Bloc|}(),",
       "\t\t),",
       "\t\tBlocProvider(",
-      "\t\t\tcreate: (context) => ${3:Subject}${4|Bloc,Cubit|}(),",
+      "\t\t\tcreate: (context) => ${3:Subject}${4|Cubit,Bloc|}(),",
       "\t\t),",
       "\t],",
       "\tchild: ${5:Container()},",
@@ -52,9 +52,15 @@
   "BlocBuilder": {
     "prefix": "blocbuilder",
     "body": [
-      "BlocBuilder<${1:Subject}${2|Bloc,Cubit|}, $1State>(",
+      "BlocBuilder<${1:Subject}${2|Cubit,Bloc|}, $1State>(",
       "\tbuilder: (context, state) {",
-      "\t\treturn ${3:Container()};",
+      "\t\tif(state is $1Failed) {",
+      "\t\t\treturn ErrorOutput(message: state.message);",
+      "\t\t}",
+      "\t\tif(state is $1Loaded) {",
+      "\t\t\treturn ${3:Container()};",
+      "\t\t}",
+      "\t\treturn Loading();",
       "\t},",
       ")"
     ]
@@ -62,9 +68,19 @@
   "BlocListener": {
     "prefix": "bloclistener",
     "body": [
-      "BlocListener<${1:Subject}${2|Bloc,Cubit|}, $1State>(",
+      "BlocListener<${1:Subject}${2|Cubit,Bloc|}, $1State>(",
       "\tlistener: (context, state) {",
-      "\t\t${3:// TODO: implement listener}",
+      "\t\tif(state is $1Loading) {",
+      "\t\t\tshowLoadingDialog(context);",
+      "\t\t\return;",
+      "\t\t}",
+      "\t\tNavigator.of(context, rootNavigator: true).pop();",
+      "\t\tif(state is $1Failed) {",
+      "\t\t\tshowErrorDialog(context);",
+      "\t\t}",
+      "\t\tif(state is $1Success) {",
+      "\t\t\tshowSuccessDialog(context);",
+      "\t\t}",
       "\t},",
       "\tchild: ${4:Container()},",
       ")"
@@ -75,12 +91,12 @@
     "body": [
       "MultiBlocListener(",
       "\tlisteners: [",
-      "\t\tBlocListener<${1:Subject}${2|Bloc,Cubit|}, $1State>(",
+      "\t\tBlocListener<${1:Subject}${2|Cubit,Bloc|}, $1State>(",
       "\t\t\tlistener: (context, state) {",
       "\t\t\t\t${3:// TODO: implement listener}",
       "\t\t\t},",
       "\t\t),",
-      "\t\tBlocListener<${4:Subject}${5|Bloc,Cubit|}, $4State>(",
+      "\t\tBlocListener<${4:Subject}${5|Cubit,Bloc|}, $4State>(",
       "\t\t\tlistener: (context, state) {",
       "\t\t\t\t${6:// TODO: implement listener}",
       "\t\t\t},",
@@ -93,7 +109,7 @@
   "BlocConsumer": {
     "prefix": "blocconsumer",
     "body": [
-      "BlocConsumer<${1:Subject}${2|Bloc,Cubit|}, $1State>(",
+      "BlocConsumer<${1:Subject}${2|Cubit,Bloc|}, $1State>(",
       "\tlistener: (context, state) {",
       "\t\t${3:// TODO: implement listener}",
       "\t},",
@@ -105,7 +121,7 @@
   },
   "BlocProvider.of()": {
     "prefix": "blocof",
-    "body": "BlocProvider.of<${1:Subject}${2|Bloc,Cubit|}>(context)"
+    "body": "BlocProvider.of<${1:Subject}${2|Cubit,Bloc|}>(context)"
   },
   "RepositoryProvider.of()": {
     "prefix": "repoof",
@@ -113,15 +129,15 @@
   },
   "context.read()": {
     "prefix": "read",
-    "body": "context.read<${1:Subject}${2|Bloc,Cubit,Repository|}>()"
+    "body": "context.read<${1:Subject}${2|Cubit,Bloc,Repository|}>()"
   },
   "context.select()": {
     "prefix": "select",
-    "body": "context.select((${1:Subject}${2|Bloc,Cubit|} ${3:element}) => $3$4)"
+    "body": "context.select((${1:Subject}${2|Cubit,Bloc|} ${3:element}) => $3$4)"
   },
   "context.watch()": {
     "prefix": "watch",
-    "body": "context.watch<${1:Subject}${2|Bloc,Cubit,Repository|}>()"
+    "body": "context.watch<${1:Subject}${2|Cubit,Bloc,Repository|}>()"
   },
   "Import package:flutter_bloc": {
     "prefix": "importflutterbloc",

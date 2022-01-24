@@ -11,13 +11,13 @@ export function getCubitStateTemplate(
     case BlocType.Freezed:
       return getFreezedCubitStateTemplate(cubitName);
     case BlocType.Equatable:
-      return getEquatableCubitStateTemplate(cubitName);
+      return getEquatableCubitStateTemplate(cubitName, codeType);
     default:
       return getDefaultCubitStateTemplate(cubitName, codeType);
   }
 }
 
-function getEquatableCubitStateTemplate(cubitName: string): string {
+function getEquatableCubitStateTemplate(cubitName: string, codeType: CubitCode): string {
   const pascalCaseCubitName = changeCase.pascalCase(cubitName.toLowerCase());
   const snakeCaseCubitName = changeCase.snakeCase(cubitName.toLowerCase());
   return `part of '${snakeCaseCubitName}_cubit.dart';
@@ -30,6 +30,8 @@ abstract class ${pascalCaseCubitName}State extends Equatable {
 }
 
 class ${pascalCaseCubitName}Initial extends ${pascalCaseCubitName}State {}
+
+${_getExtraTemplate(pascalCaseCubitName, codeType, BlocType.Equatable)}
 `;
 }
 
@@ -43,7 +45,7 @@ abstract class ${pascalCaseCubitName}State {}
 
 class ${pascalCaseCubitName}Initial extends ${pascalCaseCubitName}State {}
 
-${_getExtraTemplate(pascalCaseCubitName, codeType)}
+${_getExtraTemplate(pascalCaseCubitName, codeType, BlocType.Simple)}
 `;
 }
 
@@ -59,12 +61,26 @@ abstract class ${pascalCaseCubitName}State with _\$${pascalCaseCubitName}State {
 `;
 }
 
-function _getExtraTemplate(cubitName: string, codeType: CubitCode) {
+function _getExtraTemplate(cubitName: string, codeType: CubitCode, blocType: BlocType) {
   switch (codeType) {
     case CubitCode.get:
-      return _getGetTemplateExtras(cubitName);
+      switch (blocType) {
+        case BlocType.Simple:
+          return _getGetTemplateExtras(cubitName);
+        case BlocType.Equatable:
+          return _getGetEquatableTemplateExtras(cubitName);
+        default:
+          return '';
+      }
     case CubitCode.post:
-      return _getPostTemplateExtras(cubitName);
+      switch (blocType) {
+        case BlocType.Simple:
+          return _getPostTemplateExtras(cubitName);
+        case BlocType.Equatable:
+          return _getPostEquatableTemplateExtras(cubitName);
+        default:
+          return '';
+      }
     default:
       return '';
   }
@@ -112,6 +128,35 @@ class ${cubitName}Failed extends ${cubitName}State {
 
   @override
   int get hashCode => message.hashCode;
+}
+  `;
+}
+function _getPostEquatableTemplateExtras(cubitName: string) {
+  return `class ${cubitName}Loading extends ${cubitName}State {}
+
+class ${cubitName}Success extends ${cubitName}State {}
+
+class ${cubitName}Failed extends ${cubitName}State {
+  final String message;
+
+  @override
+  List<Object> get props => [message];
+}
+  `;
+}
+
+function _getGetEquatableTemplateExtras(cubitName: string) {
+  return `class ${cubitName}Loading extends ${cubitName}State {}
+
+class ${cubitName}Loaded extends ${cubitName}State {}
+
+class ${cubitName}Failed extends ${cubitName}State {
+  final String message;
+
+  ${cubitName}Failed(this.message);
+
+  @override
+  List<Object> get props => [message]; 
 }
   `;
 }

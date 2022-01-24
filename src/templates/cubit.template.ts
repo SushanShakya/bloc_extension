@@ -5,15 +5,15 @@ import { CubitCode } from "../utils/get-cubit-code-type";
 export function getCubitTemplate(cubitName: string, type: BlocType, codeType: CubitCode): string {
   switch (type) {
     case BlocType.Freezed:
-      return getFreezedCubitTemplate(cubitName);
+      return getFreezedCubitTemplate(cubitName, codeType);
     case BlocType.Equatable:
-      return getEquatableCubitTemplate(cubitName);
+      return getEquatableCubitTemplate(cubitName, codeType);
     default:
       return getDefaultCubitTemplate(cubitName, codeType);
   }
 }
 
-function getEquatableCubitTemplate(cubitName: string) {
+function getEquatableCubitTemplate(cubitName: string, codeType: CubitCode) {
   const pascalCaseCubitName = changeCase.pascalCase(cubitName.toLowerCase());
   const snakeCaseCubitName = changeCase.snakeCase(cubitName.toLowerCase());
   const cubitState = `${pascalCaseCubitName}State`;
@@ -24,6 +24,8 @@ part '${snakeCaseCubitName}_state.dart';
 
 class ${pascalCaseCubitName}Cubit extends Cubit<${cubitState}> {
   ${pascalCaseCubitName}Cubit() : super(${pascalCaseCubitName}Initial());
+
+  ${_createExtraTemplate(pascalCaseCubitName, codeType)}
 }
 `;
 }
@@ -45,7 +47,7 @@ class ${pascalCaseCubitName}Cubit extends Cubit<${cubitState}> {
 `;
 }
 
-export function getFreezedCubitTemplate(cubitName: string) {
+export function getFreezedCubitTemplate(cubitName: string, codeType: CubitCode) {
   const pascalCaseCubitName = changeCase.pascalCase(cubitName.toLowerCase());
   const snakeCaseCubitName = changeCase.snakeCase(cubitName.toLowerCase());
   const cubitState = `${pascalCaseCubitName}State`;
@@ -57,6 +59,8 @@ part '${snakeCaseCubitName}_cubit.freezed.dart';
 
 class ${pascalCaseCubitName}Cubit extends Cubit<${cubitState}> {
   ${pascalCaseCubitName}Cubit() : super(${pascalCaseCubitName}State.initial());
+
+  ${_createExtraTemplate(pascalCaseCubitName, codeType)}
 }
 `;
 }

@@ -12,13 +12,13 @@
             "}"
         ]
     },
-    "Cubit Pos Request": {
+    "Cubit Post Request": {
         "prefix": "c_post",
         "body": [
             "post() async {",
             "\temit(${1:Subject}Loading());",
             "\ttry {",
-            "\t\temit(${1:Subject}Loaded());",
+            "\t\temit(${1:Subject}Success());",
             "\t} catch (e) {",
             "\t\temit(${1:Subject}Failed(\"Failed to Load\"));",
             "\t}",

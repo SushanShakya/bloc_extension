@@ -1,17 +1,33 @@
 import { wrapWith } from "../utils";
 
 const blocBuilderSnippet = (widget: string) => {
-  return `BlocBuilder<\${1:Subject}\${2|Bloc,Cubit|}, $1State>(
+  return `BlocBuilder<\${1:Subject}\${2|Cubit,Bloc|}, $1State>(
   builder: (context, state) {
-    return ${widget};
+    if(state is $1Failed) {
+      return ErrorOutput(message: state.message);
+    }
+    if(state is $1Loaded) {
+      return ${widget};  
+    }
+    return Loading();
   },
 )`;
 };
 
 const blocListenerSnippet = (widget: string) => {
-  return `BlocListener<\${1:Subject}\${2|Bloc,Cubit|}, $1State>(
+  return `BlocListener<\${1:Subject}\${2|Cubit,Bloc|}, $1State>(
   listener: (context, state) {
-    \${3:// TODO: implement listener}
+    if(state is $1Loading) {
+      showLoadingDialog(context);
+      return;
+    }
+    Navigator.of(context, rootNavigator: true).pop();
+    if(state is $1Failed) {
+      showErrorDialog(context);
+    }
+    if(state is $1Success) {
+      showSuccessDialog(context);
+    }
   },
   child: ${widget},
 )`;
@@ -19,13 +35,13 @@ const blocListenerSnippet = (widget: string) => {
 
 const blocProviderSnippet = (widget: string) => {
   return `BlocProvider(
-  create: (context) => \${1:Subject}\${2|Bloc,Cubit|}(),
+  create: (context) => \${1:Subject}\${2|Cubit,Bloc|}(),
   child: ${widget},
 )`;
 };
 
 const blocConsumerSnippet = (widget: string) => {
-  return `BlocConsumer<\${1:Subject}\${2|Bloc,Cubit|}, $1State>(
+  return `BlocConsumer<\${1:Subject}\${2|Cubit,Bloc|}, $1State>(
   listener: (context, state) {
     \${3:// TODO: implement listener}
   },

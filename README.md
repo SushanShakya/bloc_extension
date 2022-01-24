@@ -18,7 +18,7 @@
 </p> -->
 
 ---
-
+### All the credits for this projects go to [Felangel](felangelov@gmail.com)
 # Original Extension by Felangel
 ## This modification included added functionality to 'New Cubit' to reduce the boilerplate for get and post request
 

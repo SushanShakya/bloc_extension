@@ -2,11 +2,11 @@
   "name": "bloc-extended",
   "displayName": "bloc-extended",
   "description": "Additional Features to bloc by FelixAngelov",
-  "version": "5.6.3",
+  "version": "5.6.4",
   "publisher": "SushanShakya",
   "bugs": {
-    "url": "https://github.com/felangel/bloc/issues",
-    "email": "felangelov@gmail.com"
+    "url": "https://github.com/SushanShakya/bloc_extension/issues",
+    "email": "sushaanshakya88@gmail.com"
   },
   "repository": {
     "type": "git",
